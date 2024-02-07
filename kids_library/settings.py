@@ -15,12 +15,6 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# import environ
-
-# env = environ.Env()
- 
-# environ.Env.read_env() 
-
 
 
 
@@ -47,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'library',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -83,21 +78,21 @@ WSGI_APPLICATION = 'kids_library.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
 
 
 # Live Database On Render
 
-import dj_database_url
+# import dj_database_url
 
-DATABASES = {
-    'default': dj_database_url.parse('postgres://onlinelibrarydatabase_user:PO4eh4FlkgZSsH0rCYqjm6upBSFEL1jx@dpg-ck3g8vmru70s73dkv6mg-a.oregon-postgres.render.com/onlinelibrarydatabase')
-}
+# DATABASES = {
+#     'default': dj_database_url.parse('postgres://onlinelibrarydatabase_user:PO4eh4FlkgZSsH0rCYqjm6upBSFEL1jx@dpg-ck3g8vmru70s73dkv6mg-a.oregon-postgres.render.com/onlinelibrarydatabase')
+# }
 
 
 # Password validation

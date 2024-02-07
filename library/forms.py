@@ -8,13 +8,46 @@ class SignUpForm(UserCreationForm):
         model = User
         fields = ['username', 'email', 'password1', 'password2']
 
+    username = forms.CharField(
+        required=True, 
+        widget=forms.TextInput(
+            attrs={
+                'placeholder': 'Username',
+                'class': 'form-control'
+            }
+        )
+    )
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['username'].widget.attrs.update({'class': 'input-text'})
-        self.fields['email'].widget.attrs.update({'class': 'input-text'})
-        self.fields['password1'].widget.attrs.update({'class': 'input-text'})
-        self.fields['password2'].widget.attrs.update({'class': 'input-text'})
+    email = forms.EmailField(
+        required=True, 
+        widget=forms.TextInput(
+            attrs={
+                'placeholder': 'Email',
+                'class': 'form-control'
+            }
+        )
+    )
+
+    password1 = forms.CharField(
+        required=True, 
+        widget=forms.PasswordInput(
+            attrs={
+                'placeholder': 'Password',
+                'class': 'form-control'
+            }
+        )
+    )
+
+    password2 = forms.CharField(
+        required=True, 
+        widget=forms.PasswordInput(
+            attrs={
+                'placeholder': 'Confirm Password',
+                'class': 'form-control'
+            }
+        )
+    )
+
 
 
 
@@ -23,22 +56,172 @@ class AddBookForm(forms.ModelForm):
         model = Book
         fields = '__all__'
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['name'].widget.attrs.update({'class': 'form-control'})
-        self.fields['author'].widget.attrs.update({'class': 'form-control'})
-        self.fields['front_page'].widget.attrs.update({'class': 'form-control'})
-        self.fields['description'].widget.attrs.update({'class': 'form-control'}) 
-        self.fields['summary'].widget.attrs.update({'class': 'form-control'})
-        self.fields['book_genre'].widget.attrs.update({'class': 'form-control'})
-        self.fields['book_code'].widget.attrs.update({'class': 'form-control'})
-        self.fields['description'].widget.attrs.update({'class': 'form-control'})
-        self.fields['edition'].widget.attrs.update({'class': 'form-control'})
-        self.fields['length'].widget.attrs.update({'class': 'form-control'})
-        self.fields['chapter'].widget.attrs.update({'class': 'form-control'})
-        self.fields['publisher'].widget.attrs.update({'class': 'form-control'})
-        self.fields['published_date'].widget.attrs.update({'class': 'form-control'})
-        self.fields['published_in'].widget.attrs.update({'class': 'form-control'})
-        self.fields['copies'].widget.attrs.update({'class': 'form-control'})
-        self.fields['language'].widget.attrs.update({'class': 'form-control'})
-        self.fields['rating'].widget.attrs.update({'class': 'form-control'})   
+    name = forms.CharField(
+        required=True,
+        widget=forms.TextInput(
+            attrs={
+                'placeholder' : 'book name',
+                'class' : 'form-control'
+            }
+        )
+    )
+
+    author = forms.CharField(
+        required=True,
+        widget=forms.TextInput(
+            attrs={
+                'placeholder': "author's name...",
+                'class': 'form-control'
+            }
+        )
+    )
+
+    front_page = forms.ImageField(
+        required=True,
+        widget=forms.ClearableFileInput(
+            attrs={
+                'class':'form-control'
+            }
+        )
+    )
+
+    description = forms.CharField(
+        required=True,
+        widget=forms.TextInput(
+            attrs={
+                'placeholder':'description...',
+                'class': 'form-control'
+            }
+        )
+    )
+
+    summary = forms.CharField(
+        required=True,
+        widget=forms.Textarea(
+            attrs={
+                'placeholder' : 'summary...',
+                'class':'form-control'
+            }
+        )
+    )
+
+    book_genre = forms.ChoiceField(
+        choices=[
+            ('Fairytales','Fairytales'),
+            ('Historical Fiction', 'Historical Fiction'),
+            ('Poetry','Poetry'),
+            ('Picture Books','Picture Books')
+        ],
+        required=True,
+        widget=forms.Select(
+
+            attrs={
+                'class':'form-control'
+            }
+        )
+    )
+
+    book_code = forms.CharField(
+        required=True,
+        widget=forms.TextInput(
+            attrs={
+                'placeholder':'code...', 
+                'class':'form-control'
+                }
+        )
+    )
+
+    edition = forms.CharField(
+        required=True,
+        widget=forms.TextInput(
+            attrs={
+                'placeholder':'edition...', 
+                'class':'form-control'
+                }
+        )
+    )
+
+    length= forms.CharField(
+        required=True,
+        widget=forms.TextInput(
+            attrs={
+                'placeholder':'length..', 
+                'class':'form-control'
+                }
+        )
+    )
+
+
+    chapter = forms.CharField(
+        required=True,
+        widget=forms.TextInput(
+            attrs={
+                'placeholder':'chapter...', 
+                'class':'form-control'
+                }
+        )
+    )
+
+    publisher = forms.CharField(
+        required=True,
+        widget=forms.TextInput(
+            attrs={
+                'placeholder':'publisher...', 
+                'class':'form-control'
+                }
+        )
+    )
+
+    published_date = forms.DateField(
+        required=True,
+        widget=forms.DateInput(
+            attrs={
+                'placeholder':'date...', 
+                'class':'form-control'
+                }
+        )
+    )
+
+
+    published_in = forms.CharField(
+        required=True,
+        widget=forms.TextInput(
+            attrs={
+                'placeholder':'location...', 
+                'class':'form-control'
+                }
+        )
+    )
+
+
+    copies = forms.IntegerField(
+        required=True,
+        widget=forms.NumberInput(
+            attrs={
+                'placeholder':'copies...', 
+                'class':'form-control'
+                }
+        )
+    )
+
+    language = forms.CharField(
+        required=True,
+        widget=forms.TextInput(
+            attrs={
+                'placeholder':'language...', 
+                'class':'form-control'
+                }
+        )
+    )
+
+
+    rating = forms.CharField(
+            required=True,
+            widget=forms.TextInput(
+                attrs={
+                    'placeholder':'rating...', 
+                    'class':'form-control'
+                    }
+            )
+        )
+    
