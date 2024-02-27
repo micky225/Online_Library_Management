@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import SignUpForm, AddBookForm
 from rest_framework import status
 from rest_framework.response import Response
+from django.views.decorators.csrf import csrf_exempt
 from .serializers import BookSerializer
 from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
@@ -14,7 +15,7 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 def home(request):
     return render(request, 'index.html')
 
-
+@csrf_exempt
 def course(request):
     books = Book.objects.all()
     search = request.GET.get('keywords')
@@ -30,12 +31,12 @@ def course(request):
 def contact(request):
     return render(request, 'contact.html')        
 
-
+@csrf_exempt
 def singleCourse(request, pk):
     singles = Book.objects.get(pk=pk)
     return render(request, 'single-book.html',{'singles':singles})
 
-
+@csrf_exempt
 def addBook(request):
     if request.method == 'POST':
         form = AddBookForm(request.POST, request.FILES)
@@ -48,6 +49,8 @@ def addBook(request):
     return render(request, 'addbook.html', {'form':form})
 
 
+
+@csrf_exempt
 def signUp(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
@@ -60,6 +63,8 @@ def signUp(request):
     return render(request, 'signup.html', {'form': form})            
 
 
+
+@csrf_exempt
 def signIn(request):
     if request.method == "POST":
         username = request.POST['username']
@@ -77,12 +82,14 @@ def signIn(request):
 
 
 
+
+@csrf_exempt
 def signOut(request):
     logout(request)
     return redirect('login')    
 
 
-
+@csrf_exempt
 def delete(request, pk):
     delete = Book.objects.get(pk=pk)
 
