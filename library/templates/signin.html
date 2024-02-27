@@ -1,3 +1,240 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:562a87a6aaf4712166001b01affb1ac0193057864eee70c2c9d9e3d036bc785d
-size 13013
+{% load static %}
+<!DOCTYPE html>
+<html lang="zxx">
+    
+
+<head>        
+        
+        <!-- Meta -->
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1">
+        
+        <!-- Title -->
+        <title>..:: LIBRARIA ::..</title>
+        
+        <!-- Favicon -->
+        <link href="{% static "images/favicon.ico" %}" rel="icon" type="image/x-icon" />
+        
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i%7CLato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet" />
+        <link href="{% static "css/font-awesome.min.css" %}" rel="stylesheet" type="text/css" />
+        
+        <!-- Mobile Menu -->
+        <link href="{% static "css/mmenu.css" %}" rel="stylesheet" type="text/css" />
+        <link href="{% static "css/mmenu.positioning.css" %}" rel="stylesheet" type="text/css" />
+        
+        <!-- Stylesheet -->
+        <link href="{% static "css/style.css" %}" rel="stylesheet" type="text/css" />
+        
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+        <script src="js/html5shiv.min.js"></script>
+        <script src="js/respond.min.js"></script>
+        <![endif]-->
+    </head>
+
+
+    <body>
+        
+       
+        <div id="content" class="site-content">
+            <div id="primary" class="content-area">
+                <main id="main" class="site-main">
+                    <div class="signin-main">
+                        <div class="container">
+                            <div class="woocommerce">
+                                <div class="woocommerce-login">
+                                    <div class="company-info signin-register">
+                                        <div class="col-md-5 border-dark col-md-offset-1">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="company-detail new-account bg-dark margin-right">
+                                                        <div class="signin-head">
+                                                            <h2>Sign in</h2>
+                                                            <span class="underline left"></span>
+                                                        </div>
+                                                        <form class="login" method="POST">
+                                                            {% csrf_token %}
+                                                            <p class="form-row form-row-first input-required">
+                                                                <label>
+                                                                    <span class="first-letter"> Username </span>  
+                                                                    <span class="second-letter">*</span>
+                                                                </label>
+                                                                <input type="text"  id="username" name="username" class="input-text">
+                                                             </p>
+                                                            <p class="form-row form-row-last input-required">
+                                                                <label>
+                                                                    <span class="first-letter">Password</span>  
+                                                                    <span class="second-letter">*</span>
+                                                                </label>
+                                                                <input type="password" id="password" name="password" class="input-text">
+                                                            </p>
+                                                            <div class="password-form-row">
+                                                                <p class="lost_password">
+                                                                    <a href="#">{% for message in messages %}
+                                                                        {{message}}
+                                                                        {% endfor %}</a>
+                                                                </p>
+                                                            </div>
+                                                            <div class="clear"></div>
+                                                             <div class="password-form-row">
+                                                                <p class="lost_password">
+                                                                    <a href="{% url 'password_reset' %}">Forgot Password</a>
+                                                                </p>
+                                                            </div>
+                                                            <input type="submit" value="Login" name="login" class="button btn btn-default">
+                                                            <div class="clear"></div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+
+
+        <footer class="site-footer">
+            <div class="container">
+                <div id="footer-widgets">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-6 widget-container">
+                            <div id="text-2" class="widget widget_text">
+                                <h3 class="footer-widget-title">About Libraria</h3>
+                                <span class="underline left"></span>
+                                <div class="textwidget">
+                                    It is a long established fact that a reader will be distracted by the readable content of a page when looking.
+                                </div>
+                                <address>
+                                    <div class="info">
+                                        <i class="fa fa-location-arrow"></i>
+                                        <span>Zinko Street, Airport Road, Fiapre</span>
+                                    </div>
+                                    <div class="info">
+                                        <i class="fa fa-envelope"></i>
+                                        <span><a href="mailto:pawah@libraria.com">pawah@libraria.com</a></span>
+                                    </div>
+                                    <div class="info">
+                                        <i class="fa fa-phone"></i>
+                                        <span><a href="tel:0542704683">+233 542704683</a></span>
+                                    </div>
+                                </address>
+                            </div>
+                        </div>
+                        <div class="col-md-2 col-sm-6 widget-container">
+                            <div id="nav_menu-2" class="widget widget_nav_menu">
+                                <h3 class="footer-widget-title">Quick Links</h3>
+                                <span class="underline left"></span>
+                                <div class="menu-quick-links-container">
+                                    <ul id="menu-quick-links" class="menu">
+                                        {% if user.is_authenticated %}
+                                        <li><a href="{% url 'logout' %}">Sign out</a></li>
+                                        {% else %}
+                                        <li><a href="{% url 'login' %}">sign in</a></li>
+                                        <li><a href="{% url 'signup' %}">Sign up</a></li>
+                                        {% endif %}
+                                        <li><a href="{% url 'home' %}">Home</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix hidden-lg hidden-md hidden-xs tablet-margin-bottom"></div>
+                        <div class="col-md-2 col-sm-6 widget-container">
+                            <div id="text-4" class="widget widget_text">
+                                <h3 class="footer-widget-title">Timing</h3>
+                                <span class="underline left"></span>
+                                <div class="timming-text-widget">
+                                    <time datetime="2017-02-13">Mon - Thu: 9 am - 9 pm</time>
+                                    <time datetime="2017-02-13">Fri: 9 am - 6 pm</time>
+                                    <time datetime="2017-02-13">Sat: 9 am - 5 pm</time>
+                                    <time datetime="2017-02-13">Sun: 1 pm - 6 pm</time>
+                                </div>
+                            </div>			
+                        </div>
+                        <div class="col-md-4 col-sm-6 widget-container">
+                            <div class="widget twitter-widget">
+                                <h3 class="footer-widget-title">Latest Tweets</h3>
+                                <span class="underline left"></span>
+                                <div id="twitter-feed">
+                                    <ul>
+                                        <li>
+                                            <p><a href="#">@Libraria</a> Sed ut perspiciatis unde omnis iste natus error sit voluptatem. <a href="#"> ibraria.com</a></p>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>			
+                        </div>
+                    </div>
+                </div>                
+            </div>
+            <div class="sub-footer">
+                <div class="container">
+                    <div class="row">
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+
+        
+        <!-- jQuery Latest Version 1.x -->
+        <script type="text/javascript" src="{% static "js/jquery-1.12.4.min.js" %}"></script>
+        
+        <!-- jQuery UI -->
+        <script type="text/javascript" src="{% static "js/jquery-ui.min.js" %}"></script>
+        
+        <!-- jQuery Easing -->
+        <script type="text/javascript" src="{% static "js/jquery.easing.1.3.js" %}"></script>
+
+        <!-- Bootstrap -->
+        <script type="text/javascript" src="{% static "js/bootstrap.min.js" %}"></script>
+        
+        <!-- Mobile Menu -->
+        <script type="text/javascript" src="{% static "js/mmenu.min.js" %}"></script>
+        
+        <!-- Harvey - State manager for media queries -->
+        <script type="text/javascript" src="{% static "js/harvey.min.js" %}"></script>
+        
+        <!-- Waypoints - Load Elements on View -->
+        <script type="text/javascript" src="{% static "js/waypoints.min.js" %}"></script>
+
+        <!-- Facts Counter -->
+        <script type="text/javascript" src="{% static "js/facts.counter.min.js" %}"></script>
+
+        <!-- MixItUp - Category Filter -->
+        <script type="text/javascript" src="{% static "js/mixitup.min.js" %}"></script>
+
+        <!-- Owl Carousel -->
+        <script type="text/javascript" src="{% static "js/owl.carousel.min.js" %}"></script>
+        
+        <!-- Accordion -->
+        <script type="text/javascript" src="{% static "js/accordion.min.js" %}"></script>
+        
+        <!-- Responsive Tabs -->
+        <script type="text/javascript" src="{% static "js/responsive.tabs.min.js" %}"></script>
+        
+        <!-- Responsive Table -->
+        <script type="text/javascript" src="{% static "js/responsive.table.min.js" %}"></script>
+        
+        <!-- Masonry -->
+        <script type="text/javascript" src="{% static "js/masonry.min.js" %}"></script>
+        
+        <!-- Carousel Swipe -->
+        <script type="text/javascript" src="{% static "js/carousel.swipe.min.js" %}"></script>
+        
+        <!-- bxSlider -->
+        <script type="text/javascript" src="{% static "js/bxslider.min.js" %}"></script>
+        
+        <!-- Custom Scripts -->
+        <script type="text/javascript" src="{% static "js/main.js" %}"></script>
+
+    </body>
+
+
+</html>

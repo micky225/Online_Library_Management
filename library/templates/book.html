@@ -1,3 +1,372 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:5f0b4b13ba4d76eb15fd88fe30c087b755bfb119098129de861d8985c1c99187
-size 19854
+{% load static %}
+<!DOCTYPE html>
+<html lang="zxx">
+    
+
+<head>        
+
+        <!-- Meta -->
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1">
+
+        <!-- Title -->
+        <title>..:: LIBRARIA ::..</title>
+
+        <!-- Favicon -->
+        <!-- Favicon -->
+        <link href="{% static "images/favicon.ico" %}" rel="icon" type="image/x-icon" />
+        
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i%7CLato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet" />
+        <link href="{% static "css/font-awesome.min.css" %}" rel="stylesheet" type="text/css" />
+        
+        <!-- Mobile Menu -->
+        <link href="{% static "css/mmenu.css" %}" rel="stylesheet" type="text/css" />
+        <link href="{% static "css/mmenu.positioning.css" %}" rel="stylesheet" type="text/css" />
+        
+        <!-- Stylesheet -->
+        <link href="{% static "css/style.css" %}" rel="stylesheet" type="text/css" />
+
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+        <script src="js/html5shiv.min.js"></script>
+        <script src="js/respond.min.js"></script>
+        <![endif]-->
+
+    </head>
+
+    <body>
+
+        <!-- Start: Header Section -->
+        <header id="header-v1" class="navbar-wrapper">
+            <div class="container">
+                <div class="row">
+                    <nav class="navbar navbar-default">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="navbar-header">
+                                    <div class="navbar-brand">
+                                        <h1>
+                                            <a href="{% url 'home' %}">
+                                                <img src="{% static "images/libraria-logo-v1.png" %}" alt="LIBRARIA" />
+                                            </a>
+                                        </h1>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <!-- Header Topbar -->
+                                <div class="header-topbar hidden-sm hidden-xs">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="topbar-info">
+                                                <a href="tel:0542704683"><i class="fa fa-phone"></i>+233 543204683</a>
+                                                <span>/</span>
+                                                <a href="mailto:pawah@libraria.com"><i class="fa fa-envelope"></i>pawah@libraria.com</a>
+                                            </div>
+                                        </div>
+                                        {% if user.is_authenticated %}
+                                        <div class="col-sm-6">
+                                            <div class="topbar-links">
+                                                <a href="{% url 'logout' %}"><i class="fa fa-lock"></i>Logout</a>
+                                                <span>|</span>
+                                            </div>
+                                        </div>
+                                        {% else %}
+                                        <div class="col-sm-6">
+                                            <div class="topbar-links">
+                                                <a href="{% url 'signup' %}"><i class="fa fa-lock"></i>Register</a>
+                                                <span>|</span>
+                                            </div>
+                                        </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="navbar-collapse hidden-sm hidden-xs">
+                                    <ul class="nav navbar-nav">
+                                        <li class="dropdown">
+                                            <a data-toggle="dropdown" class="dropdown-toggle disabled" href="{% url 'home'%}">Home</a>
+                                        </li>
+                                        <li class="dropdown active">
+                                            <a data-toggle="dropdown" class="dropdown-toggle disabled" href="{% url 'course'%}">Books</a>
+                                        </li>
+                                        <li><a href="{% url 'contact' %}">Contact</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mobile-menu hidden-lg hidden-md">
+                            <a href="#mobile-menu"><i class="fa fa-navicon"></i></a>
+                            <div id="mobile-menu">
+                                <ul>
+                                    <li class="mobile-title">
+                                        <a href="#" class="close"></a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'home'%}">Home</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'course'%} ">Books</a>
+                                    </li>
+                            
+                                    <li><a href="{% url 'contact' %}">Contact</a></li>
+                                    {% if  user.is_authenticated %}
+                                    <li><a href="{% url 'logout' %}">Logout</a></li>
+                                    {% else %}
+                                    <li><a href="{% url 'signup' %}">Register</a></li>
+                                    <li><a href="{% url 'login' %}">Login</a></li>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </header>
+        <!-- End: Header Section -->
+
+        <!-- Start: Page Banner -->
+        <section class="page-banner">
+            
+            <div class="container">
+                <div class="banner-header">
+                    <h2>Books</h2>
+                    <span class="underline center"></span>
+                    
+                </div>
+               
+            </div>
+        </section>
+        <!-- End: Page Banner -->
+
+        <!-- Start: Products Section -->
+        <div id="content" class="site-content">
+            <div id="primary" class="content-area">
+                <main id="main" class="site-main">
+                    <div class="books-full-width">
+                        <div class="container">
+                            <!-- Start: Search Section -->
+                            <section class="search-filters">
+                                <div class="filter-box">
+                                    <h3>What book are you looking for at the library?</h3>
+                                    <form action="" method="GET">
+                                        {% if user.is_authenticated %}
+                                        <div class="col-md-4 col-sm-6">
+                                            <div class="form-group">
+                                                <input class="form-control" placeholder="Search book..." id="keywords" name="keywords" type="text" value="{{search}}">
+                                            </div>
+                                        </div>
+                                        {% else %}
+                                        <div class="col-md-4 col-sm-6">
+                                            <div class="form-group">
+                                                <input class="form-control" placeholder="Search book..."/>
+                                            </div>
+                                        </div>
+                                       
+                                        {% endif %}
+                                        <div class="col-md-2 col-sm-6">
+                                            <div class="form-group">
+                                                <input class="form-control" type="submit" value="Search">
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="clear"></div>
+                            </section>
+                            <!-- End: Search Section -->
+                            
+                           {% if user.is_authenticated %}
+                            <div class="booksmedia-fullwidth">
+                                
+                                <ul>
+                                    {% for book in books %}
+                                    <li>
+                                        <figure>
+                                            <a href="{% url 'single' book.pk%}"><img src="{{book.imageUrl}}" alt="Book"></a>
+                                            <figcaption>
+                                                <header>
+                                                    <h4><a href="{% url 'single' book.pk%}">{{book.name}}</a></h4>
+                                                    <p><strong>Author:</strong> {{book.author}}</p>
+                                                    <p><strong>ISBN:</strong> {{book.book_code}}</p>
+                                                    {% if user.is_superuser %}
+                                                    <h4><a href="{% url 'delete' book.pk %}">delete book</a></h4>
+                                                    {% endif %}
+                                                </header>
+                                                <p>{{book.description}}</p>
+                                            </figcaption>
+                                        </figure>                                                
+                                    </li>
+                                    {% empty %}
+                                    <h1 style="margin-left:35%;"> No Book Found</h1>
+                                    {% endfor %}
+                                </ul>
+                                
+                            </div>
+                            {% else %}
+                            <div class="booksmedia-fullwidth">
+                                
+                                <ul>
+                                    {% for book in books|slice:":3" %}
+                                    <li>
+                                        <figure>
+                                            <a href="{% url 'single' book.pk%}"><img src="{{book.imageUrl}}" alt="Book"></a>
+                                            <figcaption>
+                                                <header>
+                                                    <h4><a href="books-media-detail-v2.html">{{book.name}}</a></h4>
+                                                    <p><strong>Author:</strong> {{book.author}}</p>
+                                                    <p><strong>ISBN:</strong> {{book.book_code}}</p>
+                                                </header>
+                                                <p>{{book.description}}</p>
+                                            </figcaption>
+                                        </figure>                                                
+                                    </li>
+                                    {% empty %}
+                                    <h1 style="margin-left:35%;"> No Book Found</h1>
+                                    {% endfor %}
+                                    
+                                    <a href="{% url 'signup' %}"><h1 style="text-align:center;; padding-bottom:9%; padding-top:9%;">Sign up with us and explore all our available books</h1></a>
+                                </ul>
+                               
+                            </div>
+                            {% endif %}
+                        </div>
+                        <!-- Start: Staff Picks -->
+                        
+
+        <!-- Start: Footer -->
+        <footer class="site-footer">
+            <div class="container">
+                <div id="footer-widgets">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-6 widget-container">
+                            <div id="text-2" class="widget widget_text">
+                                <h3 class="footer-widget-title">About Libraria</h3>
+                                <span class="underline left"></span>
+                                <div class="textwidget">
+                                    It is a long established fact that a reader will be distracted by the readable content of a page when looking.
+                                </div>
+                                <address>
+                                    <div class="info">
+                                        <i class="fa fa-location-arrow"></i>
+                                        <span>Zinko Street, Airport Road, Fiapre</span>
+                                    </div>
+                                    <div class="info">
+                                        <i class="fa fa-envelope"></i>
+                                        <span><a href="mailto:pawah@libraria.com">pawah@libraria.com</a></span>
+                                    </div>
+                                    <div class="info">
+                                        <i class="fa fa-phone"></i>
+                                        <span><a href="tel:0542704683">+233 542704683</a></span>
+                                    </div>
+                                </address>
+                            </div>
+                        </div>
+                        <div class="col-md-2 col-sm-6 widget-container">
+                            <div id="nav_menu-2" class="widget widget_nav_menu">
+                                <h3 class="footer-widget-title">Quick Links</h3>
+                                <span class="underline left"></span>
+                                <div class="menu-quick-links-container">
+                                    <ul id="menu-quick-links" class="menu">
+                                        {% if user.is_authenticated %}
+                                        <li><a href="{% url 'logout' %}">Sign out</a></li>
+                                        {% else %}
+                                        <li><a href="{% url 'login' %}">sign in</a></li>
+                                        <li><a href="{% url 'signup' %}">Sign up</a></li>
+                                        {% endif %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix hidden-lg hidden-md hidden-xs tablet-margin-bottom"></div>
+                        <div class="col-md-2 col-sm-6 widget-container">
+                            <div id="text-4" class="widget widget_text">
+                                <h3 class="footer-widget-title">Timing</h3>
+                                <span class="underline left"></span>
+                                <div class="timming-text-widget">
+                                    <time datetime="2017-02-13">Mon - Thu: 9 am - 9 pm</time>
+                                    <time datetime="2017-02-13">Fri: 9 am - 6 pm</time>
+                                    <time datetime="2017-02-13">Sat: 9 am - 5 pm</time>
+                                    <time datetime="2017-02-13">Sun: 1 pm - 6 pm</time>
+                                </div>
+                            </div>			
+                        </div>
+                        <div class="col-md-4 col-sm-6 widget-container">
+                            <div class="widget twitter-widget">
+                                <h3 class="footer-widget-title">Latest Tweets</h3>
+                                <span class="underline left"></span>
+                                <div id="twitter-feed">
+                                    <ul>
+                                        <li>
+                                            <p><a href="#">@Libraria</a> Sed ut perspiciatis unde omnis iste natus error sit voluptatem. <a href="#"> ibraria.com</a></p>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>			
+                        </div>
+                    </div>
+                </div>                
+            </div>
+            <div class="sub-footer">
+                <div class="container">
+                    <div class="row">
+                    </div>
+                </div>
+            </div>
+        </footer>        <!-- End: Footer -->
+
+        <!-- jQuery Latest Version 1.x -->
+        <script type="text/javascript" src="{% static "js/jquery-1.12.4.min.js" %}"></script>
+        
+        <!-- jQuery UI -->
+        <script type="text/javascript" src="{% static "js/jquery-ui.min.js" %}"></script>
+        
+        <!-- jQuery Easing -->
+        <script type="text/javascript" src="{% static "js/jquery.easing.1.3.js" %}"></script>
+
+        <!-- Bootstrap -->
+        <script type="text/javascript" src="{% static "js/bootstrap.min.js" %}"></script>
+        
+        <!-- Mobile Menu -->
+        <script type="text/javascript" src="{% static "js/mmenu.min.js" %}"></script>
+        
+        <!-- Harvey - State manager for media queries -->
+        <script type="text/javascript" src="{% static "js/harvey.min.js" %}"></script>
+        
+        <!-- Waypoints - Load Elements on View -->
+        <script type="text/javascript" src="{% static "js/waypoints.min.js" %}"></script>
+
+        <!-- Facts Counter -->
+        <script type="text/javascript" src="{% static "js/facts.counter.min.js" %}"></script>
+
+        <!-- MixItUp - Category Filter -->
+        <script type="text/javascript" src="{% static "js/mixitup.min.js" %}"></script>
+
+        <!-- Owl Carousel -->
+        <script type="text/javascript" src="{% static "js/owl.carousel.min.js" %}"></script>
+        
+        <!-- Accordion -->
+        <script type="text/javascript" src="{% static "js/accordion.min.js" %}"></script>
+        
+        <!-- Responsive Tabs -->
+        <script type="text/javascript" src="{% static "js/responsive.tabs.min.js" %}"></script>
+        
+        <!-- Responsive Table -->
+        <script type="text/javascript" src="{% static "js/responsive.table.min.js" %}"></script>
+        
+        <!-- Masonry -->
+        <script type="text/javascript" src="{% static "js/masonry.min.js" %}"></script>
+        
+        <!-- Carousel Swipe -->
+        <script type="text/javascript" src="{% static "js/carousel.swipe.min.js" %}"></script>
+        
+        <!-- bxSlider -->
+        <script type="text/javascript" src="{% static "js/bxslider.min.js" %}"></script>
+        
+        <!-- Custom Scripts -->
+        <script type="text/javascript" src="{% static "js/main.js" %}"></script>
+
+    </body>
+
+
+</html>
