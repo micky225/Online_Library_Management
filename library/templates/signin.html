@@ -25,6 +25,7 @@
         
         <!-- Stylesheet -->
         <link href="{% static "css/style.css" %}" rel="stylesheet" type="text/css" />
+        <link href="{% static "css/custom.css" %}" rel="stylesheet" type="text/css" />
         
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -36,7 +37,17 @@
 
 
     <body>
-        
+
+        <div class="auth-page-header">
+            <a href="{% url 'home' %}" class="auth-logo">
+                <img src="{% static "images/libraria-logo-v1.png" %}" alt="LIBRARIA" />
+            </a>
+            <div class="auth-contact">
+                <a href="tel:+233538481230"><i class="fa fa-phone"></i>+233538481230</a>
+                <span>/</span>
+                <a href="mailto:info@libraria.com"><i class="fa fa-envelope"></i>info@libraria.com</a>
+            </div>
+        </div>
        
         <div id="content" class="site-content">
             <div id="primary" class="content-area">
@@ -56,35 +67,39 @@
                                                         </div>
                                                         <form class="login" method="POST">
                                                             {% csrf_token %}
+                                                            {% if messages %}
+                                                                {% for message in messages %}
+                                                                <div class="{% if message.tags == 'success' %}form-success{% else %}form-errors{% endif %}">
+                                                                    <p>{{ message }}</p>
+                                                                </div>
+                                                                {% endfor %}
+                                                            {% endif %}
                                                             <p class="form-row form-row-first input-required">
                                                                 <label>
-                                                                    <span class="first-letter"> Username </span>  
+                                                                    <span class="first-letter">Username</span>  
                                                                     <span class="second-letter">*</span>
                                                                 </label>
-                                                                <input type="text"  id="username" name="username" class="input-text">
+                                                                <input type="text" id="username" name="username" class="input-text" autocomplete="username">
                                                              </p>
                                                             <p class="form-row form-row-last input-required">
                                                                 <label>
                                                                     <span class="first-letter">Password</span>  
                                                                     <span class="second-letter">*</span>
                                                                 </label>
-                                                                <input type="password" id="password" name="password" class="input-text">
+                                                                <input type="password" id="password" name="password" class="input-text" autocomplete="current-password">
                                                             </p>
                                                             <div class="password-form-row">
-                                                                <p class="lost_password">
-                                                                    <a href="#">{% for message in messages %}
-                                                                        {{message}}
-                                                                        {% endfor %}</a>
-                                                                </p>
-                                                            </div>
-                                                            <div class="clear"></div>
-                                                             <div class="password-form-row">
                                                                 <p class="lost_password">
                                                                     <a href="{% url 'password_reset' %}">Forgot Password</a>
                                                                 </p>
                                                             </div>
+                                                            <div class="clear"></div>
                                                             <input type="submit" value="Login" name="login" class="button btn btn-default">
                                                             <div class="clear"></div>
+                                                            <p class="auth-switch-link">
+                                                                Don't have an account?
+                                                                <a href="{% url 'signup' %}">Register</a>
+                                                            </p>
                                                         </form>
                                                     </div>
                                                 </div>
@@ -118,11 +133,11 @@
                                     </div>
                                     <div class="info">
                                         <i class="fa fa-envelope"></i>
-                                        <span><a href="mailto:pawah@libraria.com">pawah@libraria.com</a></span>
+                                        <span><a href="mailto:info@libraria.com">info@libraria.com</a></span>
                                     </div>
                                     <div class="info">
                                         <i class="fa fa-phone"></i>
-                                        <span><a href="tel:0542704683">+233 542704683</a></span>
+                                        <span><a href="tel:+233538481230">+233538481230</a></span>
                                     </div>
                                 </address>
                             </div>

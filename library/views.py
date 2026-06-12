@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.urls import reverse
 from .models import *
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
@@ -11,6 +12,13 @@ from .serializers import BookSerializer
 from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
 # Create your views here.
+
+
+def _login_redirect_url(request):
+    next_url = request.GET.get('next') or request.POST.get('next')
+    if next_url:
+        return next_url
+    return reverse('course')
 
 def home(request):
     return render(request, 'index.html')
@@ -52,20 +60,26 @@ def addBook(request):
 
 @csrf_exempt
 def signUp(request):
+    if request.user.is_authenticated:
+        return redirect('course')
+
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('home')
+            messages.success(request, 'Account created successfully. Please sign in.')
+            return redirect('login')
     else:
         form = SignUpForm()
 
-    return render(request, 'signup.html', {'form': form})            
-
+    return render(request, 'signup.html', {'form': form})
 
 
 @csrf_exempt
 def signIn(request):
+    if request.user.is_authenticated:
+        return redirect('course')
+
     if request.method == "POST":
         username = request.POST['username']
         password = request.POST['password']
@@ -73,10 +87,10 @@ def signIn(request):
         user = authenticate(request, username=username, password=password)
 
         if user is not None:
-            login(request,user)
-            return redirect('home')
+            login(request, user)
+            return redirect(_login_redirect_url(request))
         else:
-            messages.info(request, 'Invalid Username or Password')
+            messages.error(request, 'Invalid username or password.')
 
     return render(request, 'signin.html')
 

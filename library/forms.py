@@ -3,52 +3,38 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from .models import Book
 
+INPUT_CLASS = 'input-text'
+
+
 class SignUpForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['username', 'email', 'password1', 'password2']
 
     username = forms.CharField(
-        required=True, 
-        widget=forms.TextInput(
-            attrs={
-                'placeholder': 'Username',
-                'class': 'form-control'
-            }
-        )
+        required=True,
+        widget=forms.TextInput(attrs={'class': INPUT_CLASS})
     )
 
     email = forms.EmailField(
-        required=True, 
-        widget=forms.TextInput(
-            attrs={
-                'placeholder': 'Email',
-                'class': 'form-control'
-            }
-        )
+        required=True,
+        widget=forms.TextInput(attrs={'class': INPUT_CLASS})
     )
 
     password1 = forms.CharField(
-        required=True, 
-        widget=forms.PasswordInput(
-            attrs={
-                'placeholder': 'Password',
-                'class': 'form-control'
-            }
-        )
+        required=True,
+        widget=forms.PasswordInput(attrs={'class': INPUT_CLASS})
     )
 
     password2 = forms.CharField(
-        required=True, 
-        widget=forms.PasswordInput(
-            attrs={
-                'placeholder': 'Confirm Password',
-                'class': 'form-control'
-            }
-        )
+        required=True,
+        widget=forms.PasswordInput(attrs={'class': INPUT_CLASS})
     )
 
-
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field_name in ('password1', 'password2'):
+            self.fields[field_name].help_text = ''
 
 
 class AddBookForm(forms.ModelForm):
@@ -224,4 +210,3 @@ class AddBookForm(forms.ModelForm):
                     }
             )
         )
-    
