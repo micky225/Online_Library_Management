@@ -1,5 +1,4 @@
 asgiref
-backports.zoneinfo
 Django
 djangorestframework
 gunicorn
