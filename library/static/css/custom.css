@@ -1,41 +1,180 @@
 /* Libraria custom enhancements */
 
-/* Show contact bar on mobile */
+/* ------------------------------------------------------------------
+   Mobile header — logo + hamburger only; contact/auth in slide menu
+   ------------------------------------------------------------------ */
 @media (max-width: 991px) {
-  #header-v1 .header-topbar {
-    display: block !important;
-    text-align: center;
-    padding: 8px 0 4px;
-    margin-bottom: 5px;
+  #header-v1.navbar-wrapper {
+    top: 0;
+    background: rgba(0, 0, 0, 0.65);
   }
 
-  #header-v1 .header-topbar .topbar-info,
-  #header-v1 .header-topbar .topbar-links {
-    float: none !important;
-    text-align: center;
-    display: block;
+  #header-v1 > .container {
+    padding-left: 0;
+    padding-right: 0;
   }
 
-  #header-v1 .header-topbar .topbar-info a,
-  #header-v1 .header-topbar .topbar-links a {
-    font-size: 12px;
+  #header-v1 > .container > .row {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  /* Hide desktop topbar + nav column entirely on mobile */
+  #header-v1 .col-md-9 {
+    display: none !important;
+  }
+
+  #header-v1 .col-md-3 {
+    width: 100%;
+    float: none;
+    position: static;
+  }
+
+  #header-v1 nav.navbar {
+    position: relative;
+    min-height: 68px;
+    margin-bottom: 0;
+  }
+
+  #header-v1 nav.navbar > .row {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0 58px 0 12px;
+  }
+
+  #header-v1 .navbar-header {
+    width: 100%;
+    text-align: center;
+  }
+
+  #header-v1 .navbar-brand {
+    float: none;
     display: inline-block;
-    margin: 2px 4px;
+    width: auto;
+    max-width: 100%;
+    margin: 0;
+    padding: 8px 0;
   }
 
-  #header-v1 .header-topbar span {
-    margin: 0 6px;
+  #header-v1 .navbar-brand h1 {
+    margin: 0;
+    line-height: 1;
+  }
+
+  #header-v1 .navbar-brand img {
+    max-height: 48px;
+    width: auto;
+    display: inline-block;
+  }
+
+  #header-v1 .mobile-menu {
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    transform: translateY(-50%);
+    margin: 0;
+  }
+
+  #header-v1 .mobile-menu a i {
+    font-size: 26px;
+  }
+
+  /* Override theme rule that absolutely positions topbar off-screen */
+  #header-v1 .header-topbar {
+    display: none !important;
+    position: static;
+    top: auto;
+    left: auto;
   }
 }
 
-@media (max-width: 480px) {
-  #header-v1 .header-topbar .topbar-info a {
-    display: block;
-    margin: 4px 0;
+/* Mobile slide-menu contact block */
+#mobile-menu .mobile-contact a {
+  color: #fff;
+  font-size: 13px;
+  letter-spacing: 0.3px;
+}
+
+#mobile-menu .mobile-contact a i {
+  color: #ff7236;
+  margin-right: 10px;
+  width: 16px;
+  text-align: center;
+}
+
+#mobile-menu .mobile-nav-divider {
+  pointer-events: none;
+  padding: 0 20px;
+}
+
+#mobile-menu .mobile-nav-divider span {
+  display: block;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  margin: 4px 0 8px;
+}
+
+/* ------------------------------------------------------------------
+   Home hero carousel — mobile spacing & readability
+   ------------------------------------------------------------------ */
+@media (max-width: 767px) {
+  #home-v1-header-carousel figure img {
+    min-height: 400px;
+    object-fit: cover;
+    object-position: center top;
   }
 
-  #header-v1 .header-topbar .topbar-info span {
+  #home-v1-header-carousel .carousel-caption {
+    top: 55%;
+    left: 5%;
+    right: 5%;
+    transform: translateY(-50%);
+    padding: 0 12px;
+  }
+
+  #home-v1-header-carousel .carousel-caption h2 {
+    font-size: 22px;
+    line-height: 1.25;
+    margin: 0 0 8px;
+  }
+
+  #home-v1-header-carousel .carousel-caption h3 {
+    font-size: 11px;
+    letter-spacing: 0.8px;
+    margin: 0 0 10px;
+    text-transform: uppercase;
+  }
+
+  #home-v1-header-carousel .carousel-caption p {
+    font-size: 12px;
+    line-height: 1.55;
+    margin: 0;
+    max-width: 320px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  #home-v1-header-carousel .carousel-control {
     display: none;
+  }
+
+  .welcome-section {
+    padding-top: 40px;
+  }
+
+  .welcome-section .welcome-wrap .welcome-text {
+    padding: 0 15px 30px;
+  }
+
+  .welcome-section .welcome-wrap .welcome-text h2 {
+    font-size: 22px;
+  }
+
+  .welcome-section .welcome-wrap .welcome-text p {
+    font-size: 14px;
+    line-height: 1.65;
   }
 }
 
@@ -159,20 +298,5 @@
 
   .site-footer .widget-container {
     margin-bottom: 24px;
-  }
-}
-
-/* Carousel caption mobile */
-@media (max-width: 767px) {
-  .carousel-caption h2 {
-    font-size: 24px;
-  }
-
-  .carousel-caption h3 {
-    font-size: 14px;
-  }
-
-  .carousel-caption p {
-    font-size: 13px;
   }
 }
